@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+ /*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  /*========== Colors ==========*/
+  /*Color mode HSL(hue, saturation, lightness)*/
+  --first-color: hsl(82, 60%, 28%);
+  --title-color: hsl(0, 0%, 15%);
+  --text-color: hsl(0, 0%, 35%);
+  --body-color: hsl(0, 0%, 95%);
+  --container-color: hsl(0, 0%, 100%);
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Poppins", sans-serif;
+  --h2-font-size: 1.25rem;
+  --small-font-size: .813rem;
+}
+
+/*========== Responsive typography ==========*/
+@media screen and (min-width: 1120px) {
+  :root {
+    --h2-font-size: 1.5rem;
+    --small-font-size: .875rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: var(--body-font);
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/*=============== CARD ===============*/
+.container {
+  display: grid;
+  place-items: center;
+  margin-inline: 1.5rem;
+  padding-block: 5rem;
+}
+
+.card__container {
+  display: grid;
+  row-gap: 3.5rem;
+}
+
+.card__article {
+  position: relative;
+  overflow: hidden;
+}
+
+.card__img {
+  width: 328px;
+  border-radius: 1.5rem;
+}
+
+.card__data {
+  width: 280px;
+  background-color: var(--container-color);
+  padding: 1.5rem 2rem;
+  box-shadow: 0 8px 24px hsla(0, 0%, 0%, .15);
+  border-radius: 1rem;
+  position: absolute;
+  bottom: -9rem;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  opacity: 0;
+  transition: opacity 1s 1s;
+}
+
+.card__description {
+  display: block;
+  font-size: var(--small-font-size);
+  margin-bottom: .25rem;
+}
+
+.card__title {
+  font-size: var(--h2-font-size);
+  font-weight: 500;
+  color: var(--title-color);
+  margin-bottom: .75rem;
+}
+
+.card__button {
+  text-decoration: none;
+  font-size: var(--small-font-size);
+  font-weight: 500;
+  color: var(--first-color);
+}
+
+.card__button:hover {
+  text-decoration: underline;
+}
+
+/* Naming animations in hover */
+.card__article:hover .card__data {
+  animation: show-data 1s forwards;
+  opacity: 1;
+  transition: opacity .3s;
+}
+
+.card__article:hover {
+  animation: remove-overflow 2s forwards;
+}
+
+.card__article:not(:hover) {
+  animation: show-overflow 2s forwards;
+}
+
+.card__article:not(:hover) .card__data {
+  animation: remove-data 1s forwards;
+}
+
+/* Card animation */
+@keyframes show-data {
+  50% {
+    transform: translateY(-10rem);
+  }
+  100% {
+    transform: translateY(-7rem);
+  }
+}
+
+@keyframes remove-overflow {
+  to {
+    overflow: initial;
+  }
+}
+
+@keyframes remove-data {
+  0% {
+    transform: translateY(-7rem);
+  }
+  50% {
+    transform: translateY(-10rem);
+  }
+  100% {
+    transform: translateY(.5rem);
+  }
+}
+
+@keyframes show-overflow {
+  0% {
+    overflow: initial;
+    pointer-events: none;
+  }
+  50% {
+    overflow: hidden;
+  }
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (max-width: 340px) {
+  .container {
+    margin-inline: 1rem;
+  }
+
+  .card__data {
+    width: 250px;
+    padding: 1rem;
+  }
+}
+
+/* For medium devices */
+@media screen and (min-width: 768px) {
+  .card__container {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
+  }
+}
+
+/* For large devices */
+@media screen and (min-width: 1120px) {
+  .container {
+    height: 100vh;
+  }
+
+  .card__container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .card__img {
+    width: 348px;
+  }
+  .card__data {
+    width: 316px;
+    padding-inline: 2.5rem;
+  }
+}
+#about:hover
+{
+    color:white;
+    border: none;
+    border-radius: 30px;
+    background:black ;
+}
+#cart-icon {
+  margin-left: 20px; 
+  font-size: 24px;  
+}
+
+</style>
+<meta charset="UTF-8">
+<title>Camera</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body style="background: linear-gradient(135deg, #ffffff, #ffffe0);">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Trekking Essentials Hub</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav" style="padding-left:500px">
+                  <a class="nav-link active" href="mainhome.html" id="about" > Home</a><br><br><br>
+                  <a class="nav-link active" href="TrekkingAccessories.html" id="about" > Trekking Accessories</a>
+                  <a class="nav-link active" href="RidingGear.html" id="about">Riding Gear</a>
+                  <a class="nav-link active" href="TrekkingGear.html" id="about" >Trekking Gear</a>
+                  <a class="nav-link active" href="TrekkingJackets.html" id="about" >Trekking Jackets</a>
+                  <a class="nav-link active" href="camera.html" id="about" >Cameras</a>
+                   <a class="nav-link active" href="cart.html">
+                    <i class="fa-solid fa-cart-shopping" id="cart-icon" style="color:black;"></i></a>
+                </div>
+              </div>
+            </div>
+          </nav>
+            <br>
+          <br>
+              
+<form  action="SearchSweet" method="get" >
+<div class="container" style="padding-bottom:1150px">
+         <div class="card__container">
+            <article class="card__article">
+               <img src="https://images.sharepal.in/categories/action-cameras/gopro-cameras/gopro-hero-13/gopro-hero-13-on-rent-sharepal-1.webp" alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">GoPro Camera</h2>
+                  <a href="#" class="card__button">Read More</a>
+                <input type="text"  name="Camera" value="GoPro Camera"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+                  
+               </div>
+              
+            </article>
+
+            <article class="card__article">
+               <img src="https://images.sharepal.in/categories/creator-gear/vlogging-cameras/dji-pocket-3/dji-pocket-3-on-rent-sharepal-1.webp" alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">DJI camera</h2>
+                  <a href="#" class="card__button">Read More</a>
+      <input type="text"  name="Camera" value="DJI camera"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+               
+            </article>
+
+            <article class="card__article">
+               <img src="https://images.sharepal.in/categories/action-cameras/360-cameras/insta360-x3/insta360-x3-on-rent-sharepal-1.webp"  alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">360 Camera</h2>
+                  <a href="#" class="card__button">Read More</a>
+                <input type="text"  name="Camera" value="360 Camera"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+   <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+             <article class="card__article">
+               <img src="https://images.sharepal.in/categories/action-cameras/action-camera-mounts/gopro-media-mod-for-gopro-hero-10-11-12/gopro-media-mod-on-rent-sharepal-2.webp" alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">Action Camera</h2>
+                  <a href="#" class="card__button">Read More</a>
+                <input type="text"  name="Camera" value="Action Camera"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+             <article class="card__article">
+               <img src="https://images.sharepal.in/categories/action-cameras/360-cameras/gopro-hero-max/gopro-max-on-rent-sharepal-2.webp" alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">GoPro HeroMax</h2>
+                  <a href="#" class="card__button">Read More</a>
+            <input type="text"  name="Camera" value="GoPro HeroMax"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+             <article class="card__article">
+               <img src="https://images.sharepal.in/categories/action-cameras/dji-cameras/dji-action-2-power/dji-action-2-power-on-rent-sharepal-1.webp" alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">DJI Action 2 Power</h2>
+                  <a href="#" class="card__button">Read More</a>
+                <input type="text"  name="Camera" value="DJI Action 2 Power"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+             <article class="card__article">
+               <img src="https://images.sharepal.in/categories/action-cameras/dji-cameras/dji-pocket/dji-pocket-on-rent-sharepal-1.webp" alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">DJI Pocket</h2>
+                  <a href="#" class="card__button">Read More</a>
+                 <input type="text"  name="Camera" value="DJI Pocket"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+             <article class="card__article">
+               <img src="https://ik.imagekit.io/faskf16pg/gopro-cameras/insta360-ace-on-rent-sharepal-1_R5c9-68A_.png?updatedAt=1705938545894" alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">Insta360 Ace</h2>
+                  <a href="#" class="card__button">Read More</a>
+                  <input type="text"  name="Camera" value="Insta360 Ace"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>s
+               </div>
+            </article>
+             <article class="card__article">
+               <img src="https://images.sharepal.in/categories/action-cameras/gopro-cameras/insta360-go-3/insta360-go-3-on-rent-sharepal-1.webp" alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">Insta360 G0 3</h2>
+                  <a href="#" class="card__button">Read More</a>
+                 <input type="text"  name="Camera" value="Insta360 G0 3"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+             <article class="card__article">
+               <img src="https://images.sharepal.in/categories/creator-gear/gimbals-and-grips/dji-rsc2-gimbal/dji-rsc2-gimbal-on-rent-sharepal-1.webp"alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">DJI RSC2 Gimbal</h2>
+                  <a href="#" class="card__button">Read More</a>
+                <input type="text"  name="Camera" value="DJI RSC2 Gimbal"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+             <article class="card__article">
+               <img src= "https://images.sharepal.in/categories/creator-gear/gimbals-and-grips/dji-rs-3-mini/dji-rs3-mini-on-rent-sharepal-1.webp"alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">DJI RS 3 Mini</h2>
+                  <a href="#" class="card__button">Read More</a>
+            <input type="text"  name="Camera" value="DJI RS 3 Mini"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+             <article class="card__article">
+               <img src="https://images.sharepal.in/categories/creator-gear/proffessional-cameras/sony-alpha-a7/Sony-A7-on-rent-SharePal-1.webp" alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">Sony Alpha A7</h2>
+                  <a href="#" class="card__button">Read More</a>
+            <input type="text"  name="Camera" value="Sony Alpha A7"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+            <article class="card__article">
+               <img src="https://images.sharepal.in/categories/creator-gear/vlogging-cameras/sony-zv1-creator-kit/sony-zv-1-vlogging-camera-on-rent-sharepal-1.webp"alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">Sony ZV1 Vlogging Camera Creator Kit</h2>
+                  <a href="#" class="card__button">Read More</a>
+                <input type="text"  name="Camera" value="Sony ZV1 Vlogging Camera Creator Kit"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+            <article class="card__article">
+               <img src="https://images.sharepal.in/categories/cameras/dslr-cameras/canon-professional-camrecorder/canon-xa60-camcorder-on-rent-sharepal-1.webp"alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">Canon Professional Camcorder XA60</h2>
+                  <a href="#" class="card__button">Read More</a>
+                <input type="text"  name="Camera" value="Canon Professional Camcorder XA60"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+            <article class="card__article">
+               <img src="https://images.sharepal.in/categories/cameras/dslr-cameras/canon-1500d/canon-1500d-on-rent-sharepal-1.webp"alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">Canon 1500D</h2>
+                  <a href="#" class="card__button">Read More</a>
+                <input type="text"  name="Camera" value="Canon 1500D"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+            <article class="card__article">
+               <img src="https://images.sharepal.in/categories/creator-gear/vlogging-cameras/sony-zve10/sony-zve10-on-rent-sharepal-1.webp"alt="image" class="card__img">
+
+               <div class="card__data">
+                  <h2 class="card__title">Sony ZVE10</h2>
+                  <a href="#" class="card__button">Read More</a>
+                <input type="text"  name="Camera" value=" Sony ZVE10"  style=" width:200px;padding:10px">    
+    <br>
+    <br>
+    <button><a href="book.html" class="btn btn-primary" type="submit" style="display:flex;justify-content:center">Order Now</a></button><br><br>
+    <button><a href="Rent.html" class="btn btn-primary" style="display:flex;justify-content:left">View Rent details</a></button>
+               </div>
+            </article>
+        </div>
+        </div>
+       
+</form>
+</body>
+</html>

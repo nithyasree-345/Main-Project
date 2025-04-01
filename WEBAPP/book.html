@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Rental Days</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #F0FFF0;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+          
+           
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 15px;
+        }
+        input[type="text"], input[type="date"], input[type="number"], select {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="number"]:not(:last-child) {
+            width: 100%;
+        }
+        .add-to-cart-btn {
+            padding: 15px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .add-to-cart-btn:hover {
+            background-color: green;
+        }
+        .order-btn{
+        background-color:yellow;
+        padding:15px;
+        }
+        #rent-per-day{
+        width:578px;
+        }
+        #total-days{
+        width:578px;
+        }
+        #email{
+        padding:10px;
+        }
+    </style>
+    <script>
+        const productCosts = {
+            "GoPro Camera": 999,
+            "DJI Camera": 899,
+            "360 Camera": 2079,
+            "Action Camera": 1899,
+            "GoPro Hero Max": 1399,
+            "DJI Action 2 Power": 1100,
+            "DJI Pocket": 899,
+            "Insta360 Ace": 1559,
+            "Insta360 Go 3": 1199,
+            "DJI RSC2 Gimbal": 1699,
+            "DJI RS 3 Mini": 1499,
+            "Sony Alpha A7": 2478,
+            "Sony ZVI Vlog": 600,
+            "Canon Professional Camcorder": 2499,
+            "Canon 1500D": 1249,
+            "Sony ZVE 10": 1499,
+            "Women Parka Jacket": 1389,
+            "Men Parka Jacket": 600,
+            "Women Down Jacket": 399,
+            "Men Down Jacket": 399,
+            "Men 3x1 Jacket": 499,
+            "Women 3x1 Jacket": 499,
+            "Men Snow Jacket": 499,
+            "Women Snow Jacket": 499,
+            "Fleece Jacket": 299,
+            "Rain Jacket": 199,
+            "70L Backpack": 499,
+            "60L Backpack": 499,
+            "50L Backpack": 349,
+            "Backpack Raincover": 99,
+            "SH520 Snow Shoes": 599,
+            "Unisex Trek100 Trekking Shoes": 599,
+            "TREK 100 Trekking Shoes - Women's": 599,
+            "Nikon Binocular A211 16x50": 699,
+            "Headtorch": 99,
+            "3-person Camping Tent": 749,
+            "2-person Camping Tent": 499,
+            "Trekking Sleeping Bag MT500 5°C": 549,
+            "Camping Table and Stools": 899,
+            "Women Riding Jacket": 599,
+            "Men Riding Jacket": 599,
+            "Riding Boots by MotoTech": 959,
+            "Riding Pant for Men and Women": 699,
+            "Rynox Knee Guards": 599,
+            "Rynox Tornado Pro 3 Gloves": 359,
+            "Riding Gloves": 259,
+            "Riding Rain Jacket": 99,
+            "Power Bank (20000mAh)": 499,
+            "Axor Riding Helmet": 659, 
+            "Men Trek Pant": 249,
+            "Women Trek Pant": 249,
+            "Leg Gaiters": 299,
+            "Trekking Pole": 249,
+            "Hiking Sunglasses": 249,
+            "Rain Poncho": 199,
+            "Rain Pants": 199,
+        };
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function setRentPerDay() {
+            const product = document.getElementById('product').value;
+            const rentPerDay = productCosts[product] || 0;
+            document.getElementById('rent-per-day').value = rentPerDay;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const rentPerDay = parseFloat(document.getElementById('rent-per-day').value);
+            const rentalStart = new Date(document.getElementById('rental-start').value);
+            const rentalEnd = new Date(document.getElementById('rental-end').value);
+            const totalDays = (rentalEnd - rentalStart) / (1000 * 60 * 60 * 24) + 1;
+            const totalAmount = rentPerDay * totalDays;
+
+            document.getElementById('total-days').value = totalDays > 0 ? totalDays : 0;
+            document.getElementById('total-cost').value = totalAmount > 0 ? totalAmount.toFixed(2) : 0;
+        }
+
+        function addToCart() {
+            const product = document.getElementById('product').value;
+            const rentPerDay = parseFloat(document.getElementById('rent-per-day').value);
+            const rentalStart = new Date(document.getElementById('rental-start').value);
+            const rentalEnd = new Date(document.getElementById('rental-end').value);
+            const totalDays = parseInt(document.getElementById('total-days').value);
+            const totalAmount = parseFloat(document.getElementById('total-cost').value);
+
+            if (product && totalDays > 0 && totalAmount > 0) {
+                cart.push({ product, rentPerDay, rentalStart, rentalEnd, totalDays, totalAmount });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                window.location.href = 'cart.html';
+            } else {
+                alert('Please select a product and valid rental dates.');
+            }
+        }
+    </script>
+</head>
+<body style="background-image:url('https://static2.lasprovincias.es/www/multimedia/202201/16/media/trekking-montana/trekking-fotolia.jpg');background-repeat:no-repeat;background-size:cover">
+    <div class="container">
+        <h1>Book Rental Days</h1>
+        <form onsubmit="event.preventDefault();addToCart();" action="book" method="get">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="product">Product:</label>
+            <select id="product" name="product" onchange="setRentPerDay()" required>
+                <option value="">Select a product</option>
+                <option value="GoPro Camera">GoPro Camera</option>
+                <option value="DJI Camera">DJI Camera</option>
+                <option value="360 Camera">360 Camera</option>
+                <option value="Action Camera">Action Camera</option>
+                <option value="GoPro Hero Max">GoPro Hero Max</option>
+                <option value="DJI Action 2 Power">DJI Action 2 Power</option>
+                <option value="DJI Pocket">DJI Pocket</option>
+                <option value="Insta360 Ace">Insta360 Ace</option>
+                <option value="Insta360 Go 3">Insta360 Go 3</option>
+                <option value="DJI RSC2 Gimbal">DJI RSC2 Gimbal</option>
+                <option value="DJI RS 3 Mini">DJI RS 3 Mini</option>
+                <option value="Sony Alpha A7">Sony Alpha A7</option>
+                <option value="Sony ZVI Vlog">Sony ZVI Vlog</option>
+                <option value="Canon Professional Camcorder">Canon Professional Camcorder</option>
+                <option value="Canon 1500D">Canon 1500D</option>
+                <option value="Sony ZVE 10">Sony ZVE 10</option>
+                <option value="Women Parka Jacket">Women Parka Jacket</option>
+                <option value="Men Parka Jacket">Men Parka Jacket</option>
+                <option value="Women Down Jacket">Women Down Jacket</option>
+                <option value="Men Down Jacket">Men Down Jacket</option>
+                <option value="Men 3x1 Jacket">Men 3x1 Jacket</option>
+                <option value="Women 3x1 Jacket">Women 3x1 Jacket</option>
+                <option value="Men Snow Jacket">Men Snow Jacket</option>
+                <option value="Women Snow Jacket">Women Snow</option>
+                <option value="Fleece Jacket">Fleece Jacket</option>
+                <option value="Rain Jacket">Rain Jacket</option>
+                <option value="70L Backpack">70L Backpack</option>
+                <option value="60L Backpack">60L Backpack</option>
+                <option value="50L Backpack">50L Backpack</option>
+                <option value="Backpack Raincover">Backpack Raincover</option>
+                <option value="SH520 Snow Shoes">SH520 Snow Shoes</option>
+                <option value="Unisex Trek100 Trekking Shoes">Unisex Trek100 Trekking Shoes</option>
+                <option value="TREK 100 Trekking Shoes - Women's">TREK 100 Trekking Shoes - Women's</option>
+                <option value="Nikon Binocular A211 16x50">Nikon Binocular A211 16x50</option>
+                <option value="Headtorch">Headtorch</option>
+                <option value="3-person Camping Tent">3-person Camping Tent</option>
+                <option value="2-person Camping Tent">2-person Camping Tent</option>
+                <option value="Trekking Sleeping Bag MT500 5°C">Trekking Sleeping Bag MT500 5°C</option>
+                <option value="Camping Table and Stools">Camping Table and Stools</option>
+                <option value="Women Riding Jacket">Women Riding Jacket</option>
+                <option value="Men Riding Jacket">Men Riding Jacket</option>
+                <option value="Riding Boots by MotoTech">Riding Boots by MotoTech</option>
+                <option value="Riding Pant for Men and Women">Riding Pant for Men and Women</option>
+                <option value="Rynox Knee Guards">Rynox Knee Guards</option>
+                <option value="Rynox Tornado Pro 3 Gloves">Rynox Tornado Pro 3 Gloves</option>
+                <option value="Riding Gloves">Riding Gloves</option>
+                <option value="Riding Rain Jacket">Riding Rain Jacket</option>
+                <option value="Power Bank (20000mAh)">Power Bank (20000mAh)</option>
+                <option value="Axor Riding Helmet">Axor Riding Helmet</option>
+                <option value="Men Trek Pant">Men Trek Pant</option>
+                <option value="Women Trek Pant">Women Trek Pant</option>
+                <option value="Leg Gaiters">Leg Gaiters</option>
+                <option value="Trekking Pole">Trekking Pole</option>
+                <option value="Hiking Sunglasses">Hiking Sunglasses</option>
+                <option value="Rain Poncho">
+                
+                
+                </select>
+                
+                <label for="rental-start">Rental Start Date:</label>
+            <input type="date" id="rental-start" name="rental_start" required onchange="calculateTotal()">
+
+            <label for="rental-end">Rental End Date:</label>
+            <input type="date" id="rental-end" name="rental_end" required onchange="calculateTotal()">
+
+            <label for="rent-per-day">Rent Per Day (₹):</label>
+            <input type="number" id="rent-per-day" name="rent_per_day" value="0" readonly required>
+
+            <label for="total-days">Total Days:</label>
+            <input type="number" id="total-days" name="total_days" readonly>
+
+            <label for="total-cost">Total Cost (₹):</label>
+            <input type="number" id="total-cost" name="total_cost" readonly>
+
+            <input type="submit" class="order-btn" value="ADD TO CART">
+        </form>
+    </div>
+</body>
+</html>
+                
